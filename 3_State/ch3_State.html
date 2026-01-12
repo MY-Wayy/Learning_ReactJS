@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const forRender = document.getElementById("root");
+    let counter = 0;
+
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+
+    //다시 렌더링 (새로고침)
+    function render() {
+      root.render(<Container />);
+    }
+
+    const root = ReactDOM.createRoot(forRender);
+
+    const Container = () => (
+      <div>
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+      </div>
+    );
+
+    render();
+  </script>
+</html>
