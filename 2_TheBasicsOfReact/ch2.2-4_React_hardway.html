@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+
+  <script>
+    const forRender = document.getElementById("root");
+    const root = ReactDOM.createRoot(forRender);
+
+    const h3 = React.createElement(
+      "h3",
+      {
+        onMouseEnter: () => console.log("mouse enter"), //eventListener 역할
+      },
+      "Hello, I'm a span"
+    );
+    const btn = React.createElement(
+      "button", //const 변수명은 HTML 태그이름일 필요 없음
+      {
+        onClick: () => console.log("im clicked"), //eventListener 역할
+      },
+      "Click me"
+    );
+
+    const container = React.createElement("div", null, [h3, btn]);
+
+    root.render(container);
+  </script>
+</html>

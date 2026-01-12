@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const forRender = document.getElementById("root");
+    const root = ReactDOM.createRoot(forRender);
+
+    //function 방법 1 !첫 글자 대문자로
+    function Title() {
+      return (
+        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+          Hello, I'm a title
+        </h3>
+      );
+    }
+
+    //function 방법 2 !첫 글자 대문자로
+    const Button = () => (
+      <button
+        style={{ backgroundColor: "tomato" }}
+        onClick={() => console.log("im clicked")}
+      >
+        Click me
+      </button>
+    );
+
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+      // <Title />, <Button /> 등의 컴포넌트 첫 글자는 반드시 대문자
+      // 소문자로 되어있으면 HTML 태그로 인식
+    );
+
+    root.render(<Container />);
+  </script>
+</html>
