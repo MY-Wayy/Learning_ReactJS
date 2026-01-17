@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const forRender = document.getElementById("root");
+    const root = ReactDOM.createRoot(forRender);
+
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <div>
+            <label for="minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="amount"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange} //EventListener 역할
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label for="hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)} //Math.round([값]) : [값] 을 반올림 해줌
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+    }
+
+    root.render(<App />);
+  </script>
+</html>
