@@ -34,6 +34,7 @@
       return (
         <div>
           <div>
+            <h2>Minutes & Hours</h2>
             <label for="minutes">Minutes</label>
             <input
               value={inverted ? amount * 60 : amount}
@@ -60,11 +61,53 @@
         </div>
       );
     }
+
     function KmToMiles() {
-      return <h3>Km 2 Miles</h3>;
+      const [amount2, setAmount2] = React.useState();
+      const [invert2, setInvert2] = React.useState(false);
+      const onChange = (event) => setAmount2(event.target.value);
+      const reset = () => setAmount2(0);
+      const onInvert = () => {
+        reset();
+        setInvert2((current) => !current);
+      };
+
+      return (
+        <div>
+          <div>
+            <h2>Km & Miles</h2>
+            <label for="km">Km</label>
+            <input
+              value={invert2 ? amount2 * 1.609344 : amount2}
+              id="km"
+              placeholder="Km"
+              type="number"
+              onChange={onChange}
+              disabled={invert2}
+            />
+          </div>
+          <div>
+            <label for="miles">Miles</label>
+            <input
+              value={invert2 ? amount2 : amount2 / 1.609344}
+              id="miles"
+              placeholder="Miles"
+              type="number"
+              onChange={onChange}
+              disabled={!invert2}
+            />
+          </div>
+          <button id="reset" onClick={reset}>
+            Reset
+          </button>
+          <button id="invert" onClick={onInvert}>
+            {invert2 ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
     }
     function App() {
-      const [index, setIndex] = React.useState("0");
+      const [index, setIndex] = React.useState("-1");
       const onSelect = () => {
         setIndex(event.target.value);
       };
@@ -72,10 +115,12 @@
         <div>
           <h1>Super Converter</h1>
           <select value={index} onChange={onSelect}>
+            <option value="-1">Select your converter</option>
             <option value="0">Minutes & Hours</option>
             <option value="1">Km & Miles</option>
           </select>
-          <hr /> //가로선
+          <hr />
+          {index === "-1" ? "Select your converter" : null}
           {index === "0" ? <MinutesToHours /> : null}
           {index === "1" ? <KmToMiles /> : null}
         </div>
