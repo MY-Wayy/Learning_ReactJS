@@ -1,2 +1,5 @@
 #애플 제품에서 파일 분류를 위한 바이너리 파일
 .DS_Store
+
+#오류로 인한 의미 없는 아이콘 (Windows)
+favicon.ico

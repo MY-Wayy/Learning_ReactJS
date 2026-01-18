@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+
+  <!--props 의 타입 명시를 위해-->
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const forRender = document.getElementById("root");
+    const root = ReactDOM.createRoot(forRender);
+
+    function Btn({ text, fontSize = 12 }) {
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: " white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: fontSize,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    //propTypes: props 들의 타입체크하고, 다를 경우 경고표시
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text={18} fontSize="Continue" />
+        </div>
+      );
+    }
+
+    root.render(<App />);
+  </script>
+</html>

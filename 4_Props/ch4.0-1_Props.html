@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <!-- React 불러오기-->
+  <script
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const forRender = document.getElementById("root");
+    const root = ReactDOM.createRoot(forRender);
+
+    function Btn({ CustomText, changeValue }) {
+      //CustomText 의 값을 매개변수로 씀 -> props
+      //`{CustomText}` == `props` -> {props.CustomText} (CustomText 만 꺼내오기)
+      //  props는 오브젝트 이기 때문에 가능
+      console.log(CustomText, "was rendered");
+      return (
+        <button
+          onClick={changeValue}
+          style={{
+            backgroundColor: "tomato",
+            color: " white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {CustomText}
+        </button>
+      );
+    }
+
+    //Props Memo: 최적화 - props 이 바뀌지 않는 컴포넌트의 재렌더링 방지 가능
+    const MemorizedBtn = React.memo(Btn);
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
+      return (
+        <div>
+          <MemorizedBtn CustomText={value} changeValue={changeValue} />
+          <MemorizedBtn CustomText="Continue" />
+        </div>
+      );
+      //사용자 컴포넌트의 모든 속성은 이름을 같게해도 이벤트리스너가 아님.
+    }
+
+    root.render(<App />);
+  </script>
+</html>
