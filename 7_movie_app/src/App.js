@@ -11,7 +11,7 @@ function App() {
     }
     setToDo("");
     //toDos.push(추가할 것) <- 이렇게 절대 쓰지 않음.
-    setToDos((currentArray) => [toDo, currentArray]);
+    setToDos((currentArray) => [toDo, ...currentArray]);
     //`currentArray =>` == `function(currentArray){}`
     //`...Array` : 해당 배열의 요소 전부 포함
   };
