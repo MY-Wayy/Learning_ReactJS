@@ -29,6 +29,14 @@ function App() {
         />
         <button>Add To Do</button>
       </form>
+      <hr />
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+        {/* .map(함수) : 해당 배열 모든 요소에 함수 적용 
+        , 새 배열 만들어 줌*/}
+      </ul>
     </div>
   );
 }
