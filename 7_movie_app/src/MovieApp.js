@@ -35,7 +35,7 @@ function MovieApp() {
   return (
     <div>
       {loading ? (
-        <h1>loading...</h1>
+        <h1>loading... </h1>
       ) : (
         <div>
           {movies.map((movie) => (
