@@ -6,7 +6,7 @@ function MovieApp() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
-  //
+  //TMDB API 사용
   const url =
     "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1";
   const options = {
@@ -20,7 +20,7 @@ function MovieApp() {
   // async-await 사용을 위한 함수
   // .then() 문법 대체 (일반적임)
   const getMovies = async () => {
-    // 강의 코드 작동 안 함 ->
+    // 강의 코드 작동 안 함 -> TMDB API 사용
     const json = await (await fetch(url, options)).json();
     setMovies(json.results);
     setLoading(false);
