@@ -5,11 +5,13 @@ const TMDB_TOKEN = process.env.REACT_APP_TMDB_TOKEN;
 function MovieApp() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-  const [jenres, setJenres] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   //TMDB API 사용
   const moviesUrl =
     "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1";
+  const genresUrl =
+    "https://api.themoviedb.org/3/genre/movie/list?language=ko-KR";
   const options = {
     method: "GET",
     headers: {
@@ -17,8 +19,6 @@ function MovieApp() {
       Authorization: `Bearer ${TMDB_TOKEN}`,
     },
   };
-  const jenresUrl =
-    "https://api.themoviedb.org/3/genre/movie/list?language=ko-KR";
 
   // async-await 사용을 위한 함수
   // .then() 문법 대체 (일반적임)
@@ -26,12 +26,11 @@ function MovieApp() {
     // 강의 코드 작동 안 함 -> TMDB API 사용
     const json = await (await fetch(moviesUrl, options)).json();
     setMovies(json.results);
-    setLoading(false);
   };
   const getJenres = async () => {
     // 강의 코드 작동 안 함 -> TMDB API 사용
-    const json = await (await fetch(jenresUrl, options)).json();
-    setJenres(json.results);
+    const json = await (await fetch(genresUrl, options)).json();
+    setGenres(json.genres);
     setLoading(false);
   };
 
@@ -42,8 +41,8 @@ function MovieApp() {
 
   console.log("movies");
   console.log(movies);
-  console.log("jenres");
-  console.log(jenres);
+  console.log("genres");
+  console.log(genres);
   //TODO: 장르 구현
   return (
     <div>
