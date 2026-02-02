@@ -7,7 +7,6 @@ function CoinTracker_ch() {
     /*TODO: 완료 - (Code Challenge) USD to Coin 환산기 만들기*/
   }
   const [loading, setLoading] = useState(true);
-  const [isEnable, setIsEnable] = useState(false);
   const [currentCoin, setCurrentCoin] = useState("0");
   const [coins, setCoins] = useState([]); //`([])` 로 초기화 안 하면 `coins.length` 길이 확인 불가로 오류 뜸
   const [usd, setUsd] = useState("0");
