@@ -10,7 +10,7 @@ function MovieApp() {
 
   // 강의 코드 작동 안 함 -> TMDB API 사용
   const moviesUrl =
-    "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=3";
+    "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1";
   const genresUrl =
     "https://api.themoviedb.org/3/genre/movie/list?language=ko-KR";
   const options = {
@@ -29,7 +29,7 @@ function MovieApp() {
   };
   const getJenres = async () => {
     const json = await (await fetch(genresUrl, options)).json();
-    // 장르 json을 map 형식으로 전환
+    // 장르 json을 map 형식( {key : value} )으로 전환
     const map = {};
     json.genres.forEach((g) => {
       map[g.id] = g.name;
@@ -56,7 +56,7 @@ function MovieApp() {
         <div>
           {movies.map((movie) => (
             <div key={movie.id}>
-              <img src={imageUrl + movie.poster_path} />
+              <img src={imageUrl + movie.poster_path} width="200" />
               <h2>{movie.title}</h2>
               <p>{movie.overview}</p>
               <ul>
