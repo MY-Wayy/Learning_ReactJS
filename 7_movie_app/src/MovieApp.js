@@ -6,7 +6,7 @@ function MovieApp() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [genresMap, setGenresMap] = useState([]);
-  const imageUrl = "https://image.tmdb.org/t/p/w500";
+  const imageUrl = "https://image.tmdb.org/t/p/w200";
 
   // 강의 코드 작동 안 함 -> TMDB API 사용
   const moviesUrl =
@@ -27,7 +27,7 @@ function MovieApp() {
     const json = await (await fetch(moviesUrl, options)).json();
     setMovies(json.results);
   };
-  const getJenres = async () => {
+  const getGenres = async () => {
     const json = await (await fetch(genresUrl, options)).json();
     // 장르 json을 map 형식( {key : value} )으로 전환
     const map = {};
@@ -40,7 +40,7 @@ function MovieApp() {
 
   useEffect(() => {
     getMovies();
-    getJenres();
+    getGenres();
   }, []);
 
   console.log("movies");
@@ -56,7 +56,7 @@ function MovieApp() {
         <div>
           {movies.map((movie) => (
             <div key={movie.id}>
-              <img src={imageUrl + movie.poster_path} width="200" />
+              <img src={imageUrl + movie.poster_path} />
               <h2>{movie.title}</h2>
               <p>{movie.overview}</p>
               <ul>
