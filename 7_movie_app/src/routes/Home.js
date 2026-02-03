@@ -64,6 +64,7 @@ function Home() {
           {movies.map((movie) => (
             <Movie
               key={movie.id}
+              id={movie.id}
               imageUrl={imageUrl}
               posterPath={movie.poster_path}
               title={movie.title}

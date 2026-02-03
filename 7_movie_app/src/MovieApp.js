@@ -8,7 +8,8 @@ function MovieApp() {
   return (
     <Router>
       <Routes>
-        <Route path="/movie" element={<Detail />} />
+        {/* :id = id 를 변수처럼 사용 */}
+        <Route path="/movie/:id" element={<Detail />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>
