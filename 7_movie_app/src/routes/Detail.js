@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
 const TMDB_TOKEN = process.env.REACT_APP_TMDB_TOKEN;
 
@@ -7,7 +7,9 @@ const TMDB_TOKEN = process.env.REACT_APP_TMDB_TOKEN;
 
 function Detail() {
   const { id } = useParams();
-  console.log(id);
+  const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState([]);
+  const imageUrl = "https://image.tmdb.org/t/p/w300";
   const options = {
     method: "GET",
     headers: {
@@ -18,12 +20,73 @@ function Detail() {
   const getMovieDetail = async () => {
     const detailUrl = `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`;
     const json = await (await fetch(detailUrl, options)).json();
-    console.log(json);
+    setDetails(json);
+    setLoading(false);
   };
 
   useEffect(() => {
     getMovieDetail();
   }, []);
-  return <h1>Detail</h1>;
+
+  console.log(id);
+  console.log(details);
+
+  return (
+    <div>
+      {/* 로딩 구현 */}
+      {loading ? (
+        <strong>Loading...</strong>
+      ) : (
+        <div>
+          <h2>
+            {/* 홈으로 가는 네비게이션 바? 구현 */}
+            <Link to="/">To Home</Link>
+          </h2>
+          <img src={imageUrl + details.poster_path} />
+          <h1>{details.title}</h1>
+          <h3>{details.original_title}</h3>
+
+          {/* 제작사 로고, 제작사명 목록 표시 */}
+          <h4>{details.production_companies.length > 0 ? "제작사" : null}</h4>
+          {details.production_companies.map((pc) => (
+            <div
+              key={pc.id}
+              style={{
+                width: "500px",
+                margin: "3px",
+                padding: "10px",
+                backgroundColor: " rgb(230, 230, 230)",
+                border: "",
+                borderRadius: "12px",
+              }}
+            >
+              {pc.logo_path ? (
+                <img src={imageUrl + pc.logo_path} width="80px" />
+              ) : null}
+              <label style={{ paddingLeft: "10px" }}>
+                {pc.name} {pc.origin_country ? `(${pc.origin_country})` : null}
+              </label>
+            </div>
+          ))}
+          <br />
+          <p>
+            {`출시 년도: ${details.release_date} `}
+            {`/ 장르: ${details.genres.map((g) => g.name).join(", ")}`}
+          </p>
+          <p>{`평점: ${details.vote_average} / 10.0 (평가 관객 수: ${details.vote_count})`}</p>
+
+          {/* 주요 정보 표시 (예외처리 포함) */}
+          {details.tagline || details.overview ? (
+            <div>
+              <hr />
+              <h2>주요 정보</h2>
+              <h3>{details.tagline}</h3>
+              <p>{details.overview}</p>
+            </div>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
 }
 export default Detail;
