@@ -70,7 +70,8 @@ function Detail() {
           ))}
           <br />
           <p>
-            {`출시 년도: ${details.release_date} `}
+            {`러닝타임: ${details.runtime}분 `}
+            {`/ 출시 년도: ${details.release_date} `}
             {`/ 장르: ${details.genres.map((g) => g.name).join(", ")}`}
           </p>
           <p>{`평점: ${details.vote_average} / 10.0 (평가 관객 수: ${details.vote_count})`}</p>
